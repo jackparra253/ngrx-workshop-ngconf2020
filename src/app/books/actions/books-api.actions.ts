@@ -13,12 +13,12 @@ export const bookCreated = createAction(
     props<{book: BookModel}>()
 );
 
-export const updateSuccess = createAction(
+export const bookUpdated = createAction(
     `${actionBase} Book Updated Success`,
     props<{book: BookModel}>()
 );
 
-export const deleteSucces = createAction(
+export const bookDeleted = createAction(
     `${actionBase} Book Deleted Success`,
     props<{bookId: string}>()
 );

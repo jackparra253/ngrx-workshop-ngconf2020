@@ -75,7 +75,7 @@ export class BooksPageComponent implements OnInit {
     this.store.dispatch(BooksPageActions.updateBook({bookId: book.id, changes: book}));
 
     this.booksService.update(book.id, book).subscribe((book) => {
-      this.store.dispatch(BooksApiActions.updateSuccess({book}));
+      this.store.dispatch(BooksApiActions.bookUpdated({book}));
       this.getBooks();
       this.removeSelectedBook();
     });
@@ -85,7 +85,7 @@ export class BooksPageComponent implements OnInit {
     this.store.dispatch(BooksPageActions.deleteBook({bookId: book.id}));
 
     this.booksService.delete(book.id).subscribe(() => {
-      this.store.dispatch(BooksApiActions.deleteSucces({bookId: book.id}));
+      this.store.dispatch(BooksApiActions.bookDeleted({bookId: book.id}));
       this.getBooks();
       this.removeSelectedBook();
     });

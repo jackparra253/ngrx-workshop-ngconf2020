@@ -131,5 +131,8 @@
       }
     }
   },
-  "defaultProject": "ngrx-workshop-example"
+  "defaultProject": "ngrx-workshop-example",
+  "cli": {
+    "analytics": "ccc9e6d8-5102-4c0d-8d6e-0f6ad3af13b4"
+  }
 }
