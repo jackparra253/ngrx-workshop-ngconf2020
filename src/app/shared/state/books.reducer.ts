@@ -36,3 +36,7 @@ export const bookReducer = createReducer(
         };
     })
 );
+
+export function reducer(state: State | undefined, action:Action) {
+    return bookReducer(state, action);
+}
