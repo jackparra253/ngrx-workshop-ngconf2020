@@ -63,3 +63,19 @@ export const booksReducer = createReducer(
 export function reducer(state: State | undefined, action: Action) {
   return booksReducer(state, action);
 }
+
+const selectAll = (state: State) => state.collection;
+
+const selectActiveBookId = (state: State) => state.activeBookId;
+
+const selectActiveBook = createSelector(
+  selectAll,
+  selectActiveBookId,
+  (Books: BookModel[], BookId: string | null) => Books.find((book) => book.id === BookId) || null
+  
+);
+
+const selectEarningsTotals = createSelector(
+  selectAll,
+  calculateBooksGrossEarnings
+);
