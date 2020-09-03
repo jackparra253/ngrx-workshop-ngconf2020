@@ -17,6 +17,12 @@
       "name": "The Hobbit",
       "earnings": "100000000",
       "description": null
+    },
+    {
+      "id": "403343d7-c93f-4572-baa8-91f5b2ea43ed",
+      "name": "Dracula",
+      "earnings": "85000000",
+      "description": "version 2"
     }
   ]
 }
