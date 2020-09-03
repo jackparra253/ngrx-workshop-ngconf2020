@@ -21,8 +21,7 @@ export class BooksPageComponent implements OnInit {
   currentBook$: Observable<BookModel | null>;
   total$: Observable<number>;
 
-  constructor(private booksService: BooksService, private store: Store<State>) 
-  {
+  constructor(private booksService: BooksService, private store: Store<State>) {
     this.books$ = store.select(selectAllBooks);
     this.currentBook$ = store.select(selectActiveBook);
     this.total$ = store.select(selectBooksEarningsTotals);
@@ -30,14 +29,6 @@ export class BooksPageComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(BooksPageActions.enter());
-
-    this.getBooks();
-  }
-
-  getBooks() {
-    this.booksService.all().subscribe(books => {
-      this.store.dispatch(BooksApiActions.booksLoaded({books}));
-    });
   }
 
   onSelect(book: BookModel) {
@@ -57,7 +48,6 @@ export class BooksPageComponent implements OnInit {
       this.updateBook(book);      
     } else {
       this.saveBook(book);
-      
     }
   }
 
@@ -65,19 +55,19 @@ export class BooksPageComponent implements OnInit {
     this.store.dispatch(BooksPageActions.createBook({ book: bookProps }));
 
     this.booksService.create(bookProps).subscribe((book) => {
-      this.store.dispatch(BooksApiActions.bookCreated({book}));
-      this.getBooks();
       this.removeSelectedBook();
+
+      this.store.dispatch(BooksApiActions.bookCreated({book}));
     });
   }
 
   updateBook(book: BookModel) {
-    this.store.dispatch(BooksPageActions.updateBook({bookId: book.id, changes: book}));
+    this.store.dispatch(
+      BooksPageActions.updateBook({bookId: book.id, changes: book})
+      );
 
     this.booksService.update(book.id, book).subscribe((book) => {
       this.store.dispatch(BooksApiActions.bookUpdated({book}));
-      this.getBooks();
-      this.removeSelectedBook();
     });
   }
 
@@ -85,9 +75,9 @@ export class BooksPageComponent implements OnInit {
     this.store.dispatch(BooksPageActions.deleteBook({bookId: book.id}));
 
     this.booksService.delete(book.id).subscribe(() => {
-      this.store.dispatch(BooksApiActions.bookDeleted({bookId: book.id}));
-      this.getBooks();
       this.removeSelectedBook();
+
+      this.store.dispatch(BooksApiActions.bookDeleted({bookId: book.id}));
     });
   }
 }
