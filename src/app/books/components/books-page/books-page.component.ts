@@ -1,12 +1,15 @@
 import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
 import {
-  BookModel,
-  calculateBooksGrossEarnings,
-  BookRequiredProps
-} from "src/app/shared/models";
+  State,
+  selectAllBooks,
+  selectActiveBook,
+  selectBooksEarningsTotals
+} from "src/app/shared/state";
+import { BookModel, BookRequiredProps } from "src/app/shared/models";
 import { BooksService } from "src/app/shared/services";
-import { Store } from '@ngrx/store';
-import { BooksPageActions, BooksApiActions } from '../../actions/index';
+import { BooksPageActions, BooksApiActions } from "../../actions";
 
 @Component({
   selector: "app-books",
@@ -14,33 +17,31 @@ import { BooksPageActions, BooksApiActions } from '../../actions/index';
   styleUrls: ["./books-page.component.css"]
 })
 export class BooksPageComponent implements OnInit {
-  books: BookModel[] = [];
-  currentBook: BookModel | null = null;
-  total: number = 0;
+  books$: Observable<BookModel[]>;
+  currentBook$: Observable<BookModel | null>;
+  total$: Observable<number>;
 
-  constructor(private store: Store<any>,private booksService: BooksService) {}
+  constructor(private booksService: BooksService, private store: Store<State>) 
+  {
+    this.books$ = store.select(selectAllBooks);
+    this.currentBook$ = store.select(selectActiveBook);
+    this.total$ = store.select(selectBooksEarningsTotals);
+  }
 
   ngOnInit() {
     this.store.dispatch(BooksPageActions.enter());
+
     this.getBooks();
-    this.removeSelectedBook();
   }
 
   getBooks() {
     this.booksService.all().subscribe(books => {
       this.store.dispatch(BooksApiActions.booksLoaded({books}));
-      this.books = books;
-      this.updateTotals(books);
     });
-  }
-
-  updateTotals(books: BookModel[]) {
-    this.total = calculateBooksGrossEarnings(books);
   }
 
   onSelect(book: BookModel) {
     this.store.dispatch(BooksPageActions.selectBook({bookId: book.id}));
-    this.currentBook = book;
   }
 
   onCancel() {
@@ -49,7 +50,6 @@ export class BooksPageComponent implements OnInit {
 
   removeSelectedBook() {
     this.store.dispatch(BooksPageActions.clearSelectedBook());
-    this.currentBook = null;
   }
 
   onSave(book: BookRequiredProps | BookModel) {

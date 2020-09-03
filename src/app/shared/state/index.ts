@@ -19,7 +19,7 @@ export const selectAllBooks = createSelector(
     fromBooks.selectAll
 );
 
-export const selectActiveBooks = createSelector(
+export const selectActiveBook = createSelector(
     selectBookState,
     fromBooks.selectActiveBook
 );
