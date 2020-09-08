@@ -1,4 +1,4 @@
-import { ActionReducerMap, createSelector, MetaReducer } from "@ngrx/store";
+import { ActionReducerMap, createSelector, MetaReducer, ActionReducer, Action } from "@ngrx/store";
 import * as fromAuth from "./auth.reducer";
 import * as fromBooks from "./books.reducer";
 
@@ -28,3 +28,14 @@ export const selectBooksEarningsTotals = createSelector(
     selectBookState,
     fromBooks.selectEarningsTotals  
 );
+
+// function logger(reduccer:ActionReducer<any, any>){
+//     return (state:any, action: Action) => {
+//         console.log('previous state ', state);
+//         console.log('previous action', action);
+
+//         const nextState = reduccer(state, action);
+
+//         return nextState;
+//     }
+// }
