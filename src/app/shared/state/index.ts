@@ -34,21 +34,16 @@ export const selectAuthError = createSelector(
 /**
  * Books Selectors
  */
-
 export const selectBookState = (state: State) => state.books;
-
 export const selectAllBooks = createSelector(
     selectBookState,
     fromBooks.selectAll
 );
-
 export const selectActiveBook = createSelector(
     selectBookState,
     fromBooks.selectActiveBook
 );
-
 export const selectBooksEarningsTotals = createSelector(
     selectBookState,
     fromBooks.selectEarningsTotals  
 );
-

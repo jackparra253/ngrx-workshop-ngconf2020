@@ -1,7 +1,6 @@
 import { UserModel } from "../models";
 import { createReducer, on, Action } from "@ngrx/store";
 import { AuthApiActions, AuthUserActions } from "src/app/auth/actions";
-import { state } from '@angular/animations';
 
 export interface State {
     gettingStatus: boolean;
@@ -40,6 +39,3 @@ export function Reducer(state: State | undefined, action: Action){
 export const selectGettingStatus = (state: State) => state.gettingStatus;
 export const selectUser = (state: State) => state.user;
 export const selectError = (state: State) => state.error;
-
-
-
