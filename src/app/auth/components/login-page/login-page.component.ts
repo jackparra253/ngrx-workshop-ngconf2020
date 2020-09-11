@@ -4,7 +4,11 @@ import { Store } from "@ngrx/store";
 import { UserModel } from "src/app/shared/models";
 import { AuthUserActions } from "../../actions";
 import { LoginEvent } from "../login-form";
-import { State, selectAuthUser, selectAuthError, selectGettingAuthStatus } from 'src/app/shared/state';
+import { 
+  State, 
+  selectAuthUser, 
+  selectAuthError, 
+  selectGettingAuthStatus } from 'src/app/shared/state';
 
 @Component({
   selector: "app-login-page",
